@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title></title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"/>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+</head>
+
+<body> 
+     <ul id="slide-out" class="side-nav">
+         <li><div class="user-view">
+      <div class="background">
+        <img src="http://museresources.com/images/graphics_06a%20space%20background%20pack%201.jpg?crc=4199512475">
+      </div>
+      <a href="#!user"><img class="circle" src="/home/jm/Downloads/man.png"></a>
+      <a href="#!name"><span class="white-text name">Jayesh Mahajan</span></a>
+      <a href="#!email"><span class="white-text email">officialjayesh@gmail.com</span></a>
+    </div></li>
+         <li><a href="index.html">Home</a></li>
+      <li><a href="table.html">Search</a></li>
+    <!--  <li><a href="#!">Select News Source</a></li>-->
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Select News Source<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="toi.html">Times of India</a></li>
+                <li><a href="bbc.html">BBC News</a></li>
+                <li><a href="espn.html">ESPN</a></li>
+                <li><a href="tnw.html">The Next Web</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+         <!--    <li><a href="#!">Categories</a></li> -->
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Categories<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="espn.html">Sports</a></li>
+                <li><a href="tnw.html">Technology</a></li>
+                <li><a href="toi.html">India</a></li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+          
+    
+
+ 
+  <div  ng-app="myeventsApp" ng-controller="EventsController" >  
+<div class="row" ng-repeat="event in events" >
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{event.urlToImage}}">
+          <span class="card-title" >{{event.title}}</span>
+          <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">navigate_next</i></a>
+        </div>
+        <div class="card-content">
+          <p>{{event.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+ 
+
+  <!--  Scripts-->
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+    <script>
+     var myevents = angular.module('myeventsApp', []);
+
+myevents.controller("EventsController", function ($scope, $http) {
+    $http.get('https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=65121f9588cc4b02926240712e4e189c')
+        .success(function (data) {
+            $scope.events = data.articles;
+        });
+});
+  </script>
+  </body>
+
+</html>

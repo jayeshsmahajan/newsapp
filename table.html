@@ -1,0 +1,103 @@
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"/>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+    $http.get("https://newsapi.org/v1/articles?source=the-times-of-india&sortBy=top&apiKey=65121f9588cc4b02926240712e4e189c")
+    .then(function (response) {$scope.names = response.data.articles;});
+	
+    $http.get("https://newsapi.org/v1/articles?source=espn&sortBy=top&apiKey=65121f9588cc4b02926240712e4e189c")
+    .then(function (response) {$scope.names1 = response.data.articles;});
+	
+    $scope.sayIt = function (title) {
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(title));
+  };
+
+});
+</script>
+</head>
+<body>
+    
+
+
+<div ng-app="myApp" ng-controller="customersCtrl"> 
+
+<div class="container-full">
+<nav>
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" ng-model="search.title">
+          <label for="search"><i class="material-icons">search</i></label>
+          <!-- I've put "red-text" class to emphasize -->
+          <i class="material-icons red-text">close</i>
+        </div>
+      </form>
+    </div>
+  </nav>
+</div>
+<!--
+<table>
+  <tr ng-repeat="x in names | filter:search">
+    <td>{{ x.title }}</td>
+    <td>{{ x.description }}</td>
+    <td>{{ x.urlToImage }}</td>
+  </tr>
+</table>
+<table>
+  <tr ng-repeat="x in names1 | filter:search">
+    <td>{{ x.title }}</td>
+    <td>{{ x.description }}</td>
+    <td>{{ x.urlToImage }}</td>
+  </tr>
+</table>
+
+-->
+
+
+<div class="row" ng-repeat="x in names | filter:search" >
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{x.urlToImage}}">
+          <span class="card-title">{{x.title}}</span>
+          <a class="btn-floating halfway-fab waves-effect waves-light red" ng-click="sayIt(x.title)"><i class="material-icons">navigate_next</i></a>
+        </div>
+        <div class="card-content">
+          <p>{{x.description}}</p>
+        </div>
+      </div>
+    </div>
+
+</div>
+<div class="row" ng-repeat="x in names1 | filter:search" >
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{x.urlToImage}}">
+          <span class="card-title">{{x.title}}</span>
+          <a class="btn-floating halfway-fab waves-effect waves-light red" ng-click="sayIt(x.title)"><i class="material-icons">navigate_next</i></a>
+        </div>
+        <div class="card-content">
+          <p>{{x.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</body>
+</html>
+
